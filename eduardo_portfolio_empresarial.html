@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eduardo Novoa — Ingeniero, de la idea al sistema funcionando</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #FAF9F6;
+    --panel: #FFFFFF;
+    --ink: #14171F;
+    --navy: #101826;
+    --muted: #5B6472;
+    --line: #E4E1D8;
+    --gold: #B8862E;
+    --gold-soft: #F1E6D0;
+    --serif: 'Newsreader', serif;
+    --sans: 'Inter', sans-serif;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html,body{background:var(--bg); color:var(--ink); font-family:var(--sans); line-height:1.5;}
+  a{color:inherit;}
+  ::selection{background:var(--gold-soft); color:var(--navy);}
+
+  header{
+    display:flex; justify-content:space-between; align-items:center;
+    padding:26px 6vw; border-bottom:1px solid var(--line);
+    position:sticky; top:0; background:rgba(250,249,246,0.92); backdrop-filter:blur(8px); z-index:20;
+  }
+  .brand{font-family:var(--serif); font-weight:600; font-size:19px; letter-spacing:-0.01em;}
+  header nav{display:flex; gap:32px; font-size:14px;}
+  header nav a{text-decoration:none; color:var(--muted); transition:color .15s;}
+  header nav a:hover{color:var(--navy);}
+
+  .hero{
+    max-width:920px; margin:0 auto; padding:12vh 6vw 8vh; text-align:left;
+  }
+  .kicker{
+    font-size:13px; letter-spacing:.08em; text-transform:uppercase; color:var(--gold);
+    font-weight:600; margin-bottom:22px;
+  }
+  h1{
+    font-family:var(--serif); font-weight:600; font-size:clamp(32px,5vw,54px);
+    line-height:1.15; letter-spacing:-0.015em; max-width:18ch;
+  }
+  .hero-sub{
+    margin-top:26px; max-width:62ch; font-size:18px; color:var(--muted); line-height:1.7;
+  }
+  .hero-sub strong{color:var(--ink); font-weight:600;}
+
+  .credentials{
+    margin-top:44px; display:flex; gap:0; flex-wrap:wrap; border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+  }
+  .credential{
+    flex:1; min-width:180px; padding:20px 24px 20px 0; border-right:1px solid var(--line);
+  }
+  .credential:last-child{border-right:none;}
+  .credential .label{font-size:12px; text-transform:uppercase; letter-spacing:.06em; color:var(--muted); margin-bottom:6px;}
+  .credential .value{font-family:var(--serif); font-size:17px; font-weight:600;}
+
+  /* toolkit strip */
+  .toolkit{
+    max-width:920px; margin:0 auto; padding:0 6vw 10vh;
+    display:grid; grid-template-columns:repeat(3, 1fr); gap:1px; background:var(--line);
+    border:1px solid var(--line);
+  }
+  .tool{background:var(--panel); padding:26px 22px;}
+  .tool .icon{font-family:var(--serif); font-size:26px; color:var(--gold); margin-bottom:10px;}
+  .tool .name{font-weight:600; font-size:15px; margin-bottom:4px;}
+  .tool .desc{font-size:13.5px; color:var(--muted); line-height:1.5;}
+
+  section.case{
+    max-width:920px; margin:0 auto; padding:8vh 6vw; border-top:1px solid var(--line);
+  }
+  .case-eyebrow{display:flex; align-items:center; gap:14px; margin-bottom:28px;}
+  .case-eyebrow .n{font-family:var(--serif); font-size:15px; color:var(--gold); font-weight:600;}
+  .case-eyebrow .cat{font-size:12.5px; text-transform:uppercase; letter-spacing:.07em; color:var(--muted);}
+  .case h2{
+    font-family:var(--serif); font-weight:600; font-size:clamp(24px,3vw,32px);
+    letter-spacing:-0.01em; margin-bottom:30px; max-width:26ch;
+  }
+
+  .case-grid{display:grid; grid-template-columns:1.6fr 1fr; gap:48px; align-items:start;}
+  .case-copy .block{margin-bottom:24px;}
+  .case-copy .block:last-child{margin-bottom:0;}
+  .case-copy .block h3{
+    font-size:12px; text-transform:uppercase; letter-spacing:.07em; color:var(--gold); margin-bottom:8px; font-weight:600;
+  }
+  .case-copy .block p{font-size:16px; color:var(--ink); line-height:1.7;}
+  .case-copy .block p.muted{color:var(--muted);}
+
+  .result-card{
+    background:var(--navy); color:#fff; padding:34px 28px; position:relative;
+  }
+  .result-card .tag{font-size:11.5px; text-transform:uppercase; letter-spacing:.08em; color:var(--gold-soft); margin-bottom:14px;}
+  .result-card .metric{font-family:var(--serif); font-size:clamp(34px,4vw,48px); font-weight:700; line-height:1; color:var(--gold);}
+  .result-card .metric-label{margin-top:10px; font-size:14px; color:#C7CCD6; line-height:1.5;}
+  .result-card .divider{height:1px; background:rgba(255,255,255,0.15); margin:22px 0;}
+  .result-card .repo{
+    display:inline-flex; align-items:center; gap:8px; font-size:13.5px; text-decoration:none; color:#fff;
+    border-bottom:1px solid var(--gold); padding-bottom:3px; transition:opacity .15s;
+  }
+  .result-card .repo:hover{opacity:.75;}
+  .result-card .repo::after{content:'→';}
+
+  @media (max-width:760px){
+    .case-grid{grid-template-columns:1fr;}
+    .toolkit{grid-template-columns:1fr;}
+    .credential{border-right:none; border-bottom:1px solid var(--line);}
+  }
+
+  footer{
+    max-width:920px; margin:0 auto; padding:8vh 6vw 10vh; border-top:1px solid var(--line);
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:16px; font-size:14px; color:var(--muted);
+  }
+  footer strong{color:var(--ink);}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand">Eduardo Novoa</div>
+  <nav>
+    <a href="#c1">CubeSat</a>
+    <a href="#c2">Minería &amp; datos</a>
+    <a href="#c3">Optimización</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="kicker">Ingeniero Civil Telemático · UTFSM</div>
+  <h1>Construyo el sistema completo, no solo el prototipo.</h1>
+  <p class="hero-sub">
+    Trabajo en el punto donde el hardware, los datos y el software se encuentran: desde programar el
+    "cerebro" de un satélite pequeño, hasta reconstruir en 3D lo que hay bajo tierra, hasta acelerar
+    algoritmos de computación cuántica. En los tres casos el objetivo fue el mismo:
+    <strong>tomar algo complejo y hacerlo funcionar, medible y a tiempo.</strong>
+  </p>
+
+  <div class="credentials">
+    <div class="credential"><div class="label">Formación</div><div class="value">Ing. Civil Telemático, UTFSM</div></div>
+    <div class="credential"><div class="label">Actualmente</div><div class="value">Magíster en Electrónica, UTFSM</div></div>
+    <div class="credential"><div class="label">Foco</div><div class="value">Embebidos · Datos · Cómputo cuántico</div></div>
+  </div>
+</section>
+
+<div class="toolkit">
+  <div class="tool"><div class="icon">01</div><div class="name">Sistemas embebidos</div><div class="desc">Programación de microcontroladores para que un dispositivo funcione solo, en tiempo real.</div></div>
+  <div class="tool"><div class="icon">02</div><div class="name">Datos e imágenes 3D</div><div class="desc">Limpiar datos ruidosos y transformarlos en algo visual y accionable.</div></div>
+  <div class="tool"><div class="icon">03</div><div class="name">Optimización avanzada</div><div class="desc">Acelerar algoritmos, incluida computación cuántica, para resolver problemas antes inviables.</div></div>
+</div>
+
+<section class="case" id="c1">
+  <div class="case-eyebrow"><span class="n">01</span><span class="cat">Sistemas embebidos · CubeSat USM</span></div>
+  <h2>Que un satélite pequeño sepa dónde está apuntando, sin ayuda humana</h2>
+  <div class="case-grid">
+    <div class="case-copy">
+      <div class="block">
+        <h3>El problema</h3>
+        <p class="muted">Un CubeSat (un satélite del tamaño de una caja de zapatos) necesita saber
+        constantemente su propia orientación en el espacio, y enviar esa información a la Tierra sin que
+        nadie esté "manejándolo" en tiempo real.</p>
+      </div>
+      <div class="block">
+        <h3>Lo que hice</h3>
+        <p>Diseñé y programé el sistema embebido que hace ese trabajo: combina las lecturas de sensores
+        de movimiento para calcular la orientación, y transmite el resultado por radio de largo alcance
+        y bajo consumo hacia una red terrestre, de forma completamente autónoma.</p>
+      </div>
+    </div>
+    <div class="result-card">
+      <div class="tag">Resultado</div>
+      <div class="metric">50×/seg</div>
+      <div class="metric-label">Cálculo y transmisión de orientación en tiempo real, sin intervención manual.</div>
+      <div class="divider"></div>
+      <a class="repo" href="https://github.com/EduardoNovoaC24/OBC_CubeSat_Telemetry_usm" target="_blank" rel="noopener">Ver código</a>
+    </div>
+  </div>
+</section>
+
+<section class="case" id="c2">
+  <div class="case-eyebrow"><span class="n">02</span><span class="cat">Datos e imágenes 3D · CCTVal, UTFSM</span></div>
+  <h2>Ver lo que hay bajo tierra, sin excavar ni perforar</h2>
+  <div class="case-grid">
+    <div class="case-copy">
+      <div class="block">
+        <h3>El problema</h3>
+        <p class="muted">Saber si bajo la superficie hay una cavidad o un depósito de mineral, algo
+        clave para minería y geología, normalmente requiere perforar — algo lento y costoso.</p>
+      </div>
+      <div class="block">
+        <h3>Lo que hice</h3>
+        <p>Desarrollé un método que usa radiación cósmica natural para "escanear" el subsuelo, muy
+        parecido a un rayos X pero a escala geológica. Limpié los datos, usé machine learning para
+        aislar los objetos de interés, y reconstruí el resultado en 3D, validándolo contra un modelo
+        de referencia conocido.</p>
+      </div>
+    </div>
+    <div class="result-card">
+      <div class="tag">Resultado</div>
+      <div class="metric">3D</div>
+      <div class="metric-label">Reconstrucción volumétrica validada con métricas de cobertura y precisión frente al modelo de referencia.</div>
+      <div class="divider"></div>
+      <a class="repo" href="https://github.com/EduardoNovoaC24/Muography-Project-CCTVAL" target="_blank" rel="noopener">Ver código</a>
+    </div>
+  </div>
+</section>
+
+<section class="case" id="c3">
+  <div class="case-eyebrow"><span class="n">03</span><span class="cat">Optimización · Computación cuántica, IPD434</span></div>
+  <h2>Resolver problemas de optimización 362 veces más rápido</h2>
+  <div class="case-grid">
+    <div class="case-copy">
+      <div class="block">
+        <h3>El problema</h3>
+        <p class="muted">Problemas de optimización (repartir recursos, agrupar, decidir entre muchas
+        combinaciones) se vuelven carísimos de resolver a medida que crecen, incluso para computadores
+        potentes.</p>
+      </div>
+      <div class="block">
+        <h3>Lo que hice</h3>
+        <p>Implementé y aceleré un algoritmo de computación cuántica (FALQON) que resuelve este tipo
+        de problemas sin necesitar ajuste manual de parámetros. Rediseñé el cálculo interno para que
+        corriera muchísimo más rápido, y usé búsqueda automática de configuración para afinarlo aún más.</p>
+      </div>
+    </div>
+    <div class="result-card">
+      <div class="tag">Resultado</div>
+      <div class="metric">362×</div>
+      <div class="metric-label">Más rápido que el método original, sin perder precisión en el resultado.</div>
+      <div class="divider"></div>
+      <a class="repo" href="https://github.com/EduardoNovoaC24/QUBO-Optimization-IPD434" target="_blank" rel="noopener">Ver código</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div><strong>Eduardo Novoa Carrasco</strong> · UTFSM</div>
+  <div>Ingeniería que se entiende, y que funciona.</div>
+</footer>
+
+</body>
+</html>
